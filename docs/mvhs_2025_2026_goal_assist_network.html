@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MVHS 2025-2026 Goal & Assist Network</title>
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <style type="text/css">
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden;
+            background-color: #111216;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: #ffffff;
+        }
+        #header { position: absolute; top: 20px; left: 20px; z-index: 10; pointer-events: none; }
+        h1 { margin: 0 0 5px 0; font-size: 24px; font-weight: 600; letter-spacing: -0.5px; }
+        p { margin: 0; font-size: 14px; color: #8a8f98; }
+        #network-container { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+        div.vis-network div.vis-tooltip {
+            position: absolute; visibility: hidden; padding: 12px;
+            background-color: #1c1e24; color: #ffffff; border: 1px solid #2d3139;
+            border-radius: 8px; font-size: 13px; box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1>MVHS 2025-2026 Goal & Assist Network</h1>
+        <p>Hover over players to view goals & assists.</p>
+        <p>Drag nodes to adjust layout, or reload to reset positions randomly.</p>
+        <p><a href="https://doukaba-goal-db.streamlit.app" target="_blank" style="color: #8a8f98; pointer-events: auto;">Data Source: Doukaba Goal Database</a></p>
+    </div>
+    <div id="network-container"></div>
+    <script type="text/javascript">
+        const data = {
+            nodes: new vis.DataSet([{"id": "Nicco", "label": "Nicco", "size": 65, "title": "Nicco: 17 G, 8 A", "color": "#e377c2"}, {"id": "Patrick", "label": "Patrick", "size": 27, "title": "Patrick: 4 G, 2 A", "color": "#7f7f7f"}, {"id": "Brayden", "label": "Brayden", "size": 17, "title": "Brayden: 1 G", "color": "#ff7f0e"}, {"id": "Ethan", "label": "Ethan", "size": 21, "title": "Ethan: 3 G", "color": "#98df8a"}, {"id": "Marko", "label": "Marko", "size": 33, "title": "Marko: 3 G, 6 A", "color": "#8c564b"}, {"id": "Valen", "label": "Valen", "size": 17, "title": "Valen: 1 A", "color": "#bcbd22"}, {"id": "Cyrus", "label": "Cyrus", "size": 89, "title": "Cyrus: 22 G, 15 A", "color": "#2ca02c"}, {"id": "Jonah", "label": "Jonah", "size": 31, "title": "Jonah: 3 G, 5 A", "color": "#9467bd"}, {"id": "Yotam", "label": "Yotam", "size": 17, "title": "Yotam: 1 A", "color": "#dbdb8d"}, {"id": "Ayan", "label": "Ayan", "size": 19, "title": "Ayan: 2 A", "color": "#aec7e8"}, {"id": "Aksel", "label": "Aksel", "size": 19, "title": "Aksel: 1 G, 1 A", "color": "#1f77b4"}, {"id": "Javier", "label": "Javier", "size": 37, "title": "Javier: 5 G, 6 A", "color": "#ff9896"}, {"id": "Kai", "label": "Kai", "size": 33, "title": "Kai: 6 G, 3 A", "color": "#c5b0d5"}, {"id": "Jasper", "label": "Jasper", "size": 19, "title": "Jasper: 1 G, 1 A", "color": "#d62728"}, {"id": "Thomas", "label": "Thomas", "size": 17, "title": "Thomas: 1 G", "color": "#c7c7c7"}, {"id": "Mikey", "label": "Mikey", "size": 27, "title": "Mikey: 5 G, 1 A", "color": "#c49c94"}, {"id": "Connor", "label": "Connor", "size": 25, "title": "Connor: 2 G, 3 A", "color": "#ffbb78"}, {"id": "Nolan", "label": "Nolan", "size": 35, "title": "Nolan: 3 G, 7 A", "color": "#f7b6d2"}]),
+            edges: new vis.DataSet([{"from": "Aksel", "to": "Javier", "value": 1, "title": "Aksel \u2192 Javier: 1 G", "color": "#1f77b4"}, {"from": "Ayan", "to": "Javier", "value": 1, "title": "Ayan \u2192 Javier: 1 G", "color": "#aec7e8"}, {"from": "Ayan", "to": "Nicco", "value": 1, "title": "Ayan \u2192 Nicco: 1 G", "color": "#aec7e8"}, {"from": "Connor", "to": "Connor", "value": 1, "title": "Connor (self): 1 G", "color": {"color": "#e056fd", "inherit": false}}, {"from": "Connor", "to": "Cyrus", "value": 1, "title": "Connor \u2192 Cyrus: 1 G", "color": "#ffbb78"}, {"from": "Connor", "to": "Nicco", "value": 2, "title": "Connor \u2192 Nicco: 2 G", "color": "#ffbb78"}, {"from": "Cyrus", "to": "Brayden", "value": 1, "title": "Cyrus \u2192 Brayden: 1 G", "color": "#2ca02c"}, {"from": "Cyrus", "to": "Cyrus", "value": 7, "title": "Cyrus (self): 7 G", "color": {"color": "#e056fd", "inherit": false}}, {"from": "Cyrus", "to": "Jonah", "value": 1, "title": "Cyrus \u2192 Jonah: 1 G", "color": "#2ca02c"}, {"from": "Cyrus", "to": "Kai", "value": 2, "title": "Cyrus \u2192 Kai: 2 G", "color": "#2ca02c"}, {"from": "Cyrus", "to": "Mikey", "value": 1, "title": "Cyrus \u2192 Mikey: 1 G", "color": "#2ca02c"}, {"from": "Cyrus", "to": "Nicco", "value": 6, "title": "Cyrus \u2192 Nicco: 6 G", "color": "#2ca02c"}, {"from": "Cyrus", "to": "Nolan", "value": 1, "title": "Cyrus \u2192 Nolan: 1 G", "color": "#2ca02c"}, {"from": "Cyrus", "to": "Patrick", "value": 3, "title": "Cyrus \u2192 Patrick: 3 G", "color": "#2ca02c"}, {"from": "Jasper", "to": "Cyrus", "value": 1, "title": "Jasper \u2192 Cyrus: 1 G", "color": "#d62728"}, {"from": "Javier", "to": "Cyrus", "value": 3, "title": "Javier \u2192 Cyrus: 3 G", "color": "#ff9896"}, {"from": "Javier", "to": "Ethan", "value": 2, "title": "Javier \u2192 Ethan: 2 G", "color": "#ff9896"}, {"from": "Javier", "to": "Mikey", "value": 1, "title": "Javier \u2192 Mikey: 1 G", "color": "#ff9896"}, {"from": "Jonah", "to": "Cyrus", "value": 2, "title": "Jonah \u2192 Cyrus: 2 G", "color": "#9467bd"}, {"from": "Jonah", "to": "Jasper", "value": 1, "title": "Jonah \u2192 Jasper: 1 G", "color": "#9467bd"}, {"from": "Jonah", "to": "Marko", "value": 1, "title": "Jonah \u2192 Marko: 1 G", "color": "#9467bd"}, {"from": "Jonah", "to": "Nicco", "value": 1, "title": "Jonah \u2192 Nicco: 1 G", "color": "#9467bd"}, {"from": "Kai", "to": "Javier", "value": 1, "title": "Kai \u2192 Javier: 1 G", "color": "#c5b0d5"}, {"from": "Kai", "to": "Kai", "value": 1, "title": "Kai (self): 1 G", "color": {"color": "#e056fd", "inherit": false}}, {"from": "Kai", "to": "Nicco", "value": 1, "title": "Kai \u2192 Nicco: 1 G", "color": "#c5b0d5"}, {"from": "Kai", "to": "Patrick", "value": 1, "title": "Kai \u2192 Patrick: 1 G", "color": "#c5b0d5"}, {"from": "Marko", "to": "Cyrus", "value": 2, "title": "Marko \u2192 Cyrus: 2 G", "color": "#8c564b"}, {"from": "Marko", "to": "Marko", "value": 1, "title": "Marko (self): 1 G", "color": {"color": "#e056fd", "inherit": false}}, {"from": "Marko", "to": "Mikey", "value": 1, "title": "Marko \u2192 Mikey: 1 G", "color": "#8c564b"}, {"from": "Marko", "to": "Nicco", "value": 3, "title": "Marko \u2192 Nicco: 3 G", "color": "#8c564b"}, {"from": "Mikey", "to": "Aksel", "value": 1, "title": "Mikey \u2192 Aksel: 1 G", "color": "#c49c94"}, {"from": "Mikey", "to": "Mikey", "value": 2, "title": "Mikey (self): 2 G", "color": {"color": "#e056fd", "inherit": false}}, {"from": "Nicco", "to": "Cyrus", "value": 4, "title": "Nicco \u2192 Cyrus: 4 G", "color": "#e377c2"}, {"from": "Nicco", "to": "Javier", "value": 1, "title": "Nicco \u2192 Javier: 1 G", "color": "#e377c2"}, {"from": "Nicco", "to": "Jonah", "value": 2, "title": "Nicco \u2192 Jonah: 2 G", "color": "#e377c2"}, {"from": "Nicco", "to": "Marko", "value": 1, "title": "Nicco \u2192 Marko: 1 G", "color": "#e377c2"}, {"from": "Nicco", "to": "Nicco", "value": 1, "title": "Nicco (self): 1 G", "color": {"color": "#e056fd", "inherit": false}}, {"from": "Nolan", "to": "Cyrus", "value": 2, "title": "Nolan \u2192 Cyrus: 2 G", "color": "#f7b6d2"}, {"from": "Nolan", "to": "Ethan", "value": 1, "title": "Nolan \u2192 Ethan: 1 G", "color": "#f7b6d2"}, {"from": "Nolan", "to": "Kai", "value": 3, "title": "Nolan \u2192 Kai: 3 G", "color": "#f7b6d2"}, {"from": "Nolan", "to": "Nolan", "value": 2, "title": "Nolan (self): 2 G", "color": {"color": "#e056fd", "inherit": false}}, {"from": "Nolan", "to": "Thomas", "value": 1, "title": "Nolan \u2192 Thomas: 1 G", "color": "#f7b6d2"}, {"from": "Patrick", "to": "Javier", "value": 1, "title": "Patrick \u2192 Javier: 1 G", "color": "#7f7f7f"}, {"from": "Patrick", "to": "Nicco", "value": 1, "title": "Patrick \u2192 Nicco: 1 G", "color": "#7f7f7f"}, {"from": "Valen", "to": "Nicco", "value": 1, "title": "Valen \u2192 Nicco: 1 G", "color": "#bcbd22"}, {"from": "Yotam", "to": "Connor", "value": 1, "title": "Yotam \u2192 Connor: 1 G", "color": "#dbdb8d"}])
+        };
+
+        const options = {
+            nodes: {
+                shape: 'dot',
+                font: { color: '#ffffff', size: 14, face: '-apple-system, BlinkMacSystemFont' },
+                color: { background: '#1e88e5', border: '#1565c0', highlight: { background: '#26a69a', border: '#00897b' } },
+                borderWidth: 2
+            },
+            edges: {
+                arrows: { to: { enabled: true, scaleFactor: 1.0 } },
+                color: { color: '#4a5160', highlight: '#26a69a', inherit: 'from' },
+                scaling: { min: 1, max: 8 },
+                smooth: { enabled: true, type: 'dynamic', roundness: 0.5 }
+            },
+            physics: {
+                solver: 'forceAtlas2Based',
+                forceAtlas2Based: {
+                    gravitationalConstant: -80,
+                    centralGravity: 0.01,
+                    springLength: 200,
+                    springConstant: 0.1,
+                    damping: 2,
+                    avoidOverlap: 1
+                },
+                stabilization: { enabled: true, iterations: 500 }
+            },
+            interaction: { hover: true, tooltipDelay: 100 }
+        };
+        new vis.Network(document.getElementById('network-container'), data, options);
+    </script>
+</body>
+</html>
