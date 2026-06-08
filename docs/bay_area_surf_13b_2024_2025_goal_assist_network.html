@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bay Area Surf 13B 2024-2025 Goal & Assist Network</title>
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <style type="text/css">
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden;
+            background-color: #111216;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: #ffffff;
+        }
+        #header { position: absolute; top: 20px; left: 20px; z-index: 10; pointer-events: none; }
+        h1 { margin: 0 0 5px 0; font-size: 24px; font-weight: 600; letter-spacing: -0.5px; }
+        p { margin: 0; font-size: 14px; color: #8a8f98; }
+        #network-container { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+        div.vis-network div.vis-tooltip {
+            position: absolute; visibility: hidden; padding: 12px;
+            background-color: #1c1e24; color: #ffffff; border: 1px solid #2d3139;
+            border-radius: 8px; font-size: 13px; box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1>Bay Area Surf 13B 2024-2025 Goal & Assist Network</h1>
+        <p>Hover over players to view goals & assists.</p>
+        <p>Drag nodes to adjust layout, or reload to reset positions randomly.</p>
+        <p><a href="https://doukaba-goal-db.streamlit.app" target="_blank" style="color: #8a8f98; pointer-events: auto;">Data Source: Doukaba Goal Database</a></p>
+    </div>
+    <div id="network-container"></div>
+    <script type="text/javascript">
+        const data = {
+            nodes: new vis.DataSet([
+    {
+        "color": "#1f77b4",
+        "id": "Alexander",
+        "label": "Alexander",
+        "size": 79,
+        "title": "Alexander: 20 G, 12 A"
+    },
+    {
+        "color": "#aec7e8",
+        "id": "Allen",
+        "label": "Allen",
+        "size": 29,
+        "title": "Allen: 6 G, 1 A"
+    },
+    {
+        "color": "#ff7f0e",
+        "id": "Ayden",
+        "label": "Ayden",
+        "size": 29,
+        "title": "Ayden: 4 G, 3 A"
+    },
+    {
+        "color": "#ffbb78",
+        "id": "Cameron",
+        "label": "Cameron",
+        "size": 55,
+        "title": "Cameron: 8 G, 12 A"
+    },
+    {
+        "color": "#2ca02c",
+        "id": "Carter R",
+        "label": "Carter R",
+        "size": 41,
+        "title": "Carter R: 7 G, 6 A"
+    },
+    {
+        "color": "#98df8a",
+        "id": "Christian",
+        "label": "Christian",
+        "size": 103,
+        "title": "Christian: 13 G, 31 A"
+    },
+    {
+        "color": "#d62728",
+        "id": "DJ",
+        "label": "DJ",
+        "size": 27,
+        "title": "DJ: 2 G, 4 A"
+    },
+    {
+        "color": "#ff9896",
+        "id": "Dominic",
+        "label": "Dominic",
+        "size": 125,
+        "title": "Dominic: 30 G, 25 A"
+    },
+    {
+        "color": "#9467bd",
+        "id": "Eli A",
+        "label": "Eli A",
+        "size": 17,
+        "title": "Eli A: 1 A"
+    },
+    {
+        "color": "#c5b0d5",
+        "id": "Eli U",
+        "label": "Eli U",
+        "size": 61,
+        "title": "Eli U: 13 G, 10 A"
+    },
+    {
+        "color": "#8c564b",
+        "id": "Emi",
+        "label": "Emi",
+        "size": 17,
+        "title": "Emi: 1 G"
+    },
+    {
+        "color": "#c49c94",
+        "id": "Hudson",
+        "label": "Hudson",
+        "size": 21,
+        "title": "Hudson: 1 G, 2 A"
+    },
+    {
+        "color": "#e377c2",
+        "id": "Joshua",
+        "label": "Joshua",
+        "size": 33,
+        "title": "Joshua: 2 G, 7 A"
+    },
+    {
+        "color": "#f7b6d2",
+        "id": "Julian",
+        "label": "Julian",
+        "size": 129,
+        "title": "Julian: 36 G, 21 A"
+    },
+    {
+        "color": "#7f7f7f",
+        "id": "Luke",
+        "label": "Luke",
+        "size": 53,
+        "title": "Luke: 5 G, 14 A"
+    },
+    {
+        "color": "#c7c7c7",
+        "id": "Mateo",
+        "label": "Mateo",
+        "size": 21,
+        "title": "Mateo: 2 G, 1 A"
+    },
+    {
+        "color": "#bcbd22",
+        "id": "Milan",
+        "label": "Milan",
+        "size": 17,
+        "title": "Milan: 1 A"
+    },
+    {
+        "color": "#dbdb8d",
+        "id": "Murad",
+        "label": "Murad",
+        "size": 17,
+        "title": "Murad: 1 A"
+    },
+    {
+        "color": "#17becf",
+        "id": "Nyeem",
+        "label": "Nyeem",
+        "size": 137,
+        "title": "Nyeem: 47 G, 14 A"
+    },
+    {
+        "color": "#9edae5",
+        "id": "OG",
+        "label": "OG",
+        "size": 19,
+        "title": "OG: 2 G"
+    },
+    {
+        "color": "#1f77b4",
+        "id": "Owen",
+        "label": "Owen",
+        "size": 25,
+        "title": "Owen: 3 G, 2 A"
+    },
+    {
+        "color": "#aec7e8",
+        "id": "Ryan K",
+        "label": "Ryan K",
+        "size": 33,
+        "title": "Ryan K: 4 G, 5 A"
+    },
+    {
+        "color": "#ff7f0e",
+        "id": "Ryder",
+        "label": "Ryder",
+        "size": 21,
+        "title": "Ryder: 2 G, 1 A"
+    },
+    {
+        "color": "#ffbb78",
+        "id": "Sebastian",
+        "label": "Sebastian",
+        "size": 33,
+        "title": "Sebastian: 8 G, 1 A"
+    },
+    {
+        "color": "#2ca02c",
+        "id": "Takumi",
+        "label": "Takumi",
+        "size": 19,
+        "title": "Takumi: 2 A"
+    }
+]),
+            edges: new vis.DataSet([
+    {
+        "color": {
+            "color": "#f5f5dc",
+            "inherit": false
+        },
+        "from": "Alexander",
+        "title": "Alexander (self): 4 G",
+        "to": "Alexander",
+        "value": 4
+    },
+    {
+        "color": "#1f77b4",
+        "from": "Alexander",
+        "title": "Alexander \u2192 Carter R: 2 G",
+        "to": "Carter R",
+        "value": 2
+    },
+    {
+        "color": "#1f77b4",
+        "from": "Alexander",
+        "title": "Alexander \u2192 Dominic: 3 G",
+        "to": "Dominic",
+        "value": 3
+    },
+    {
+        "color": "#1f77b4",
+        "from": "Alexander",
+        "title": "Alexander \u2192 Julian: 1 G",
+        "to": "Julian",
+        "value": 1
+    },
+    {
+        "color": "#1f77b4",
+        "from": "Alexander",
+        "title": "Alexander \u2192 Luke: 2 G",
+        "to": "Luke",
+        "value": 2
+    },
+    {
+        "color": "#1f77b4",
+        "from": "Alexander",
+        "title": "Alexander \u2192 Nyeem: 4 G",
+        "to": "Nyeem",
+        "value": 4
+    },
+    {
+        "color": {
+            "color": "#f5f5dc",
+            "inherit": false
+        },
+        "from": "Allen",
+        "title": "Allen (self): 1 G",
+        "to": "Allen",
+        "value": 1
+    },
+    {
+        "color": "#aec7e8",
+        "from": "Allen",
+        "title": "Allen \u2192 Nyeem: 1 G",
+        "to": "Nyeem",
+        "value": 1
+    },
+    {
+        "color": "#ff7f0e",
+        "from": "Ayden",
+        "title": "Ayden \u2192 Eli U: 1 G",
+        "to": "Eli U",
+        "value": 1
+    },
+    {
+        "color": "#ff7f0e",
+        "from": "Ayden",
+        "title": "Ayden \u2192 Julian: 1 G",
+        "to": "Julian",
+        "value": 1
+    },
+    {
+        "color": "#ff7f0e",
+        "from": "Ayden",
+        "title": "Ayden \u2192 Nyeem: 1 G",
+        "to": "Nyeem",
+        "value": 1
+    },
+    {
+        "color": {
+            "color": "#f5f5dc",
+            "inherit": false
+        },
+        "from": "Cameron",
+        "title": "Cameron (self): 1 G",
+        "to": "Cameron",
+        "value": 1
+    },
+    {
+        "color": "#ffbb78",
+        "from": "Cameron",
+        "title": "Cameron \u2192 Alexander: 3 G",
+        "to": "Alexander",
+        "value": 3
+    },
+    {
+        "color": "#ffbb78",
+        "from": "Cameron",
+        "title": "Cameron \u2192 Dominic: 2 G",
+        "to": "Dominic",
+        "value": 2
+    },
+    {
+        "color": "#ffbb78",
+        "from": "Cameron",
+        "title": "Cameron \u2192 Eli U: 2 G",
+        "to": "Eli U",
+        "value": 2
+    },
+    {
+        "color": "#ffbb78",
+        "from": "Cameron",
+        "title": "Cameron \u2192 Julian: 2 G",
+        "to": "Julian",
+        "value": 2
+    },
+    {
+        "color": "#ffbb78",
+        "from": "Cameron",
+        "title": "Cameron \u2192 Nyeem: 3 G",
+        "to": "Nyeem",
+        "value": 3
+    },
+    {
+        "color": "#2ca02c",
+        "from": "Carter R",
+        "title": "Carter R \u2192 Alexander: 1 G",
+        "to": "Alexander",
+        "value": 1
+    },
+    {
+        "color": "#2ca02c",
+        "from": "Carter R",
+        "title": "Carter R \u2192 Allen: 1 G",
+        "to": "Allen",
+        "value": 1
+    },
+    {
+        "color": "#2ca02c",
+        "from": "Carter R",
+        "title": "Carter R \u2192 Dominic: 1 G",
+        "to": "Dominic",
+        "value": 1
+    },
+    {
+        "color": "#2ca02c",
+        "from": "Carter R",
+        "title": "Carter R \u2192 Nyeem: 3 G",
+        "to": "Nyeem",
+        "value": 3
+    },
+    {
+        "color": {
+            "color": "#f5f5dc",
+            "inherit": false
+        },
+        "from": "Christian",
+        "title": "Christian (self): 5 G",
+        "to": "Christian",
+        "value": 5
+    },
+    {
+        "color": "#98df8a",
+        "from": "Christian",
+        "title": "Christian \u2192 Alexander: 4 G",
+        "to": "Alexander",
+        "value": 4
+    },
+    {
+        "color": "#98df8a",
+        "from": "Christian",
+        "title": "Christian \u2192 Cameron: 3 G",
+        "to": "Cameron",
+        "value": 3
+    },
+    {
+        "color": "#98df8a",
+        "from": "Christian",
+        "title": "Christian \u2192 Dominic: 4 G",
+        "to": "Dominic",
+        "value": 4
+    },
+    {
+        "color": "#98df8a",
+        "from": "Christian",
+        "title": "Christian \u2192 Eli U: 1 G",
+        "to": "Eli U",
+        "value": 1
+    },
+    {
+        "color": "#98df8a",
+        "from": "Christian",
+        "title": "Christian \u2192 Joshua: 1 G",
+        "to": "Joshua",
+        "value": 1
+    },
+    {
+        "color": "#98df8a",
+        "from": "Christian",
+        "title": "Christian \u2192 Julian: 4 G",
+        "to": "Julian",
+        "value": 4
+    },
+    {
+        "color": "#98df8a",
+        "from": "Christian",
+        "title": "Christian \u2192 Luke: 1 G",
+        "to": "Luke",
+        "value": 1
+    },
+    {
+        "color": "#98df8a",
+        "from": "Christian",
+        "title": "Christian \u2192 Nyeem: 8 G",
+        "to": "Nyeem",
+        "value": 8
+    },
+    {
+        "color": "#98df8a",
+        "from": "Christian",
+        "title": "Christian \u2192 Ryan K: 2 G",
+        "to": "Ryan K",
+        "value": 2
+    },
+    {
+        "color": "#98df8a",
+        "from": "Christian",
+        "title": "Christian \u2192 Ryder: 1 G",
+        "to": "Ryder",
+        "value": 1
+    },
+    {
+        "color": "#98df8a",
+        "from": "Christian",
+        "title": "Christian \u2192 Sebastian: 2 G",
+        "to": "Sebastian",
+        "value": 2
+    },
+    {
+        "color": "#d62728",
+        "from": "DJ",
+        "title": "DJ \u2192 Carter R: 1 G",
+        "to": "Carter R",
+        "value": 1
+    },
+    {
+        "color": "#d62728",
+        "from": "DJ",
+        "title": "DJ \u2192 Dominic: 1 G",
+        "to": "Dominic",
+        "value": 1
+    },
+    {
+        "color": "#d62728",
+        "from": "DJ",
+        "title": "DJ \u2192 Julian: 1 G",
+        "to": "Julian",
+        "value": 1
+    },
+    {
+        "color": "#d62728",
+        "from": "DJ",
+        "title": "DJ \u2192 Owen: 1 G",
+        "to": "Owen",
+        "value": 1
+    },
+    {
+        "color": {
+            "color": "#f5f5dc",
+            "inherit": false
+        },
+        "from": "Dominic",
+        "title": "Dominic (self): 6 G",
+        "to": "Dominic",
+        "value": 6
+    },
+    {
+        "color": "#ff9896",
+        "from": "Dominic",
+        "title": "Dominic \u2192 Ayden: 2 G",
+        "to": "Ayden",
+        "value": 2
+    },
+    {
+        "color": "#ff9896",
+        "from": "Dominic",
+        "title": "Dominic \u2192 Carter R: 2 G",
+        "to": "Carter R",
+        "value": 2
+    },
+    {
+        "color": "#ff9896",
+        "from": "Dominic",
+        "title": "Dominic \u2192 Christian: 2 G",
+        "to": "Christian",
+        "value": 2
+    },
+    {
+        "color": "#ff9896",
+        "from": "Dominic",
+        "title": "Dominic \u2192 Eli U: 2 G",
+        "to": "Eli U",
+        "value": 2
+    },
+    {
+        "color": "#ff9896",
+        "from": "Dominic",
+        "title": "Dominic \u2192 Emi: 1 G",
+        "to": "Emi",
+        "value": 1
+    },
+    {
+        "color": "#ff9896",
+        "from": "Dominic",
+        "title": "Dominic \u2192 Julian: 4 G",
+        "to": "Julian",
+        "value": 4
+    },
+    {
+        "color": "#ff9896",
+        "from": "Dominic",
+        "title": "Dominic \u2192 Nyeem: 9 G",
+        "to": "Nyeem",
+        "value": 9
+    },
+    {
+        "color": "#ff9896",
+        "from": "Dominic",
+        "title": "Dominic \u2192 Sebastian: 3 G",
+        "to": "Sebastian",
+        "value": 3
+    },
+    {
+        "color": "#9467bd",
+        "from": "Eli A",
+        "title": "Eli A \u2192 Alexander: 1 G",
+        "to": "Alexander",
+        "value": 1
+    },
+    {
+        "color": {
+            "color": "#f5f5dc",
+            "inherit": false
+        },
+        "from": "Eli U",
+        "title": "Eli U (self): 2 G",
+        "to": "Eli U",
+        "value": 2
+    },
+    {
+        "color": "#c5b0d5",
+        "from": "Eli U",
+        "title": "Eli U \u2192 Ayden: 1 G",
+        "to": "Ayden",
+        "value": 1
+    },
+    {
+        "color": "#c5b0d5",
+        "from": "Eli U",
+        "title": "Eli U \u2192 Dominic: 1 G",
+        "to": "Dominic",
+        "value": 1
+    },
+    {
+        "color": "#c5b0d5",
+        "from": "Eli U",
+        "title": "Eli U \u2192 Julian: 4 G",
+        "to": "Julian",
+        "value": 4
+    },
+    {
+        "color": "#c5b0d5",
+        "from": "Eli U",
+        "title": "Eli U \u2192 Nyeem: 3 G",
+        "to": "Nyeem",
+        "value": 3
+    },
+    {
+        "color": "#c5b0d5",
+        "from": "Eli U",
+        "title": "Eli U \u2192 Owen: 1 G",
+        "to": "Owen",
+        "value": 1
+    },
+    {
+        "color": {
+            "color": "#f5f5dc",
+            "inherit": false
+        },
+        "from": "Hudson",
+        "title": "Hudson (self): 1 G",
+        "to": "Hudson",
+        "value": 1
+    },
+    {
+        "color": "#c49c94",
+        "from": "Hudson",
+        "title": "Hudson \u2192 Alexander: 1 G",
+        "to": "Alexander",
+        "value": 1
+    },
+    {
+        "color": "#c49c94",
+        "from": "Hudson",
+        "title": "Hudson \u2192 Julian: 1 G",
+        "to": "Julian",
+        "value": 1
+    },
+    {
+        "color": "#e377c2",
+        "from": "Joshua",
+        "title": "Joshua \u2192 Alexander: 2 G",
+        "to": "Alexander",
+        "value": 2
+    },
+    {
+        "color": "#e377c2",
+        "from": "Joshua",
+        "title": "Joshua \u2192 Cameron: 1 G",
+        "to": "Cameron",
+        "value": 1
+    },
+    {
+        "color": "#e377c2",
+        "from": "Joshua",
+        "title": "Joshua \u2192 Dominic: 1 G",
+        "to": "Dominic",
+        "value": 1
+    },
+    {
+        "color": "#e377c2",
+        "from": "Joshua",
+        "title": "Joshua \u2192 Julian: 1 G",
+        "to": "Julian",
+        "value": 1
+    },
+    {
+        "color": "#e377c2",
+        "from": "Joshua",
+        "title": "Joshua \u2192 Ryder: 1 G",
+        "to": "Ryder",
+        "value": 1
+    },
+    {
+        "color": "#e377c2",
+        "from": "Joshua",
+        "title": "Joshua \u2192 Sebastian: 1 G",
+        "to": "Sebastian",
+        "value": 1
+    },
+    {
+        "color": {
+            "color": "#f5f5dc",
+            "inherit": false
+        },
+        "from": "Julian",
+        "title": "Julian (self): 10 G",
+        "to": "Julian",
+        "value": 10
+    },
+    {
+        "color": "#f7b6d2",
+        "from": "Julian",
+        "title": "Julian \u2192 Alexander: 2 G",
+        "to": "Alexander",
+        "value": 2
+    },
+    {
+        "color": "#f7b6d2",
+        "from": "Julian",
+        "title": "Julian \u2192 Ayden: 1 G",
+        "to": "Ayden",
+        "value": 1
+    },
+    {
+        "color": "#f7b6d2",
+        "from": "Julian",
+        "title": "Julian \u2192 Cameron: 1 G",
+        "to": "Cameron",
+        "value": 1
+    },
+    {
+        "color": "#f7b6d2",
+        "from": "Julian",
+        "title": "Julian \u2192 Christian: 3 G",
+        "to": "Christian",
+        "value": 3
+    },
+    {
+        "color": "#f7b6d2",
+        "from": "Julian",
+        "title": "Julian \u2192 Dominic: 1 G",
+        "to": "Dominic",
+        "value": 1
+    },
+    {
+        "color": "#f7b6d2",
+        "from": "Julian",
+        "title": "Julian \u2192 Eli U: 1 G",
+        "to": "Eli U",
+        "value": 1
+    },
+    {
+        "color": "#f7b6d2",
+        "from": "Julian",
+        "title": "Julian \u2192 Joshua: 1 G",
+        "to": "Joshua",
+        "value": 1
+    },
+    {
+        "color": "#f7b6d2",
+        "from": "Julian",
+        "title": "Julian \u2192 Luke: 1 G",
+        "to": "Luke",
+        "value": 1
+    },
+    {
+        "color": "#f7b6d2",
+        "from": "Julian",
+        "title": "Julian \u2192 Mateo: 2 G",
+        "to": "Mateo",
+        "value": 2
+    },
+    {
+        "color": "#f7b6d2",
+        "from": "Julian",
+        "title": "Julian \u2192 Nyeem: 7 G",
+        "to": "Nyeem",
+        "value": 7
+    },
+    {
+        "color": "#f7b6d2",
+        "from": "Julian",
+        "title": "Julian \u2192 Ryan K: 1 G",
+        "to": "Ryan K",
+        "value": 1
+    },
+    {
+        "color": "#7f7f7f",
+        "from": "Luke",
+        "title": "Luke \u2192 Alexander: 2 G",
+        "to": "Alexander",
+        "value": 2
+    },
+    {
+        "color": "#7f7f7f",
+        "from": "Luke",
+        "title": "Luke \u2192 Allen: 3 G",
+        "to": "Allen",
+        "value": 3
+    },
+    {
+        "color": "#7f7f7f",
+        "from": "Luke",
+        "title": "Luke \u2192 Christian: 1 G",
+        "to": "Christian",
+        "value": 1
+    },
+    {
+        "color": "#7f7f7f",
+        "from": "Luke",
+        "title": "Luke \u2192 DJ: 2 G",
+        "to": "DJ",
+        "value": 2
+    },
+    {
+        "color": "#7f7f7f",
+        "from": "Luke",
+        "title": "Luke \u2192 Dominic: 1 G",
+        "to": "Dominic",
+        "value": 1
+    },
+    {
+        "color": "#7f7f7f",
+        "from": "Luke",
+        "title": "Luke \u2192 Eli U: 1 G",
+        "to": "Eli U",
+        "value": 1
+    },
+    {
+        "color": "#7f7f7f",
+        "from": "Luke",
+        "title": "Luke \u2192 Julian: 1 G",
+        "to": "Julian",
+        "value": 1
+    },
+    {
+        "color": "#7f7f7f",
+        "from": "Luke",
+        "title": "Luke \u2192 Nyeem: 3 G",
+        "to": "Nyeem",
+        "value": 3
+    },
+    {
+        "color": "#c7c7c7",
+        "from": "Mateo",
+        "title": "Mateo \u2192 Dominic: 1 G",
+        "to": "Dominic",
+        "value": 1
+    },
+    {
+        "color": "#bcbd22",
+        "from": "Milan",
+        "title": "Milan \u2192 Eli U: 1 G",
+        "to": "Eli U",
+        "value": 1
+    },
+    {
+        "color": "#dbdb8d",
+        "from": "Murad",
+        "title": "Murad \u2192 Nyeem: 1 G",
+        "to": "Nyeem",
+        "value": 1
+    },
+    {
+        "color": {
+            "color": "#f5f5dc",
+            "inherit": false
+        },
+        "from": "Nyeem",
+        "title": "Nyeem (self): 4 G",
+        "to": "Nyeem",
+        "value": 4
+    },
+    {
+        "color": "#17becf",
+        "from": "Nyeem",
+        "title": "Nyeem \u2192 Cameron: 1 G",
+        "to": "Cameron",
+        "value": 1
+    },
+    {
+        "color": "#17becf",
+        "from": "Nyeem",
+        "title": "Nyeem \u2192 Carter R: 2 G",
+        "to": "Carter R",
+        "value": 2
+    },
+    {
+        "color": "#17becf",
+        "from": "Nyeem",
+        "title": "Nyeem \u2192 Christian: 2 G",
+        "to": "Christian",
+        "value": 2
+    },
+    {
+        "color": "#17becf",
+        "from": "Nyeem",
+        "title": "Nyeem \u2192 Dominic: 5 G",
+        "to": "Dominic",
+        "value": 5
+    },
+    {
+        "color": "#17becf",
+        "from": "Nyeem",
+        "title": "Nyeem \u2192 Eli U: 2 G",
+        "to": "Eli U",
+        "value": 2
+    },
+    {
+        "color": "#17becf",
+        "from": "Nyeem",
+        "title": "Nyeem \u2192 Julian: 2 G",
+        "to": "Julian",
+        "value": 2
+    },
+    {
+        "color": {
+            "color": "#f5f5dc",
+            "inherit": false
+        },
+        "from": "OG",
+        "title": "OG (self): 2 G",
+        "to": "OG",
+        "value": 2
+    },
+    {
+        "color": {
+            "color": "#f5f5dc",
+            "inherit": false
+        },
+        "from": "Owen",
+        "title": "Owen (self): 1 G",
+        "to": "Owen",
+        "value": 1
+    },
+    {
+        "color": "#1f77b4",
+        "from": "Owen",
+        "title": "Owen \u2192 Julian: 2 G",
+        "to": "Julian",
+        "value": 2
+    },
+    {
+        "color": {
+            "color": "#f5f5dc",
+            "inherit": false
+        },
+        "from": "Ryan K",
+        "title": "Ryan K (self): 1 G",
+        "to": "Ryan K",
+        "value": 1
+    },
+    {
+        "color": "#aec7e8",
+        "from": "Ryan K",
+        "title": "Ryan K \u2192 Cameron: 1 G",
+        "to": "Cameron",
+        "value": 1
+    },
+    {
+        "color": "#aec7e8",
+        "from": "Ryan K",
+        "title": "Ryan K \u2192 Dominic: 2 G",
+        "to": "Dominic",
+        "value": 2
+    },
+    {
+        "color": "#aec7e8",
+        "from": "Ryan K",
+        "title": "Ryan K \u2192 Luke: 1 G",
+        "to": "Luke",
+        "value": 1
+    },
+    {
+        "color": "#aec7e8",
+        "from": "Ryan K",
+        "title": "Ryan K \u2192 Sebastian: 1 G",
+        "to": "Sebastian",
+        "value": 1
+    },
+    {
+        "color": "#ff7f0e",
+        "from": "Ryder",
+        "title": "Ryder \u2192 Dominic: 1 G",
+        "to": "Dominic",
+        "value": 1
+    },
+    {
+        "color": {
+            "color": "#f5f5dc",
+            "inherit": false
+        },
+        "from": "Sebastian",
+        "title": "Sebastian (self): 1 G",
+        "to": "Sebastian",
+        "value": 1
+    },
+    {
+        "color": "#ffbb78",
+        "from": "Sebastian",
+        "title": "Sebastian \u2192 Julian: 1 G",
+        "to": "Julian",
+        "value": 1
+    },
+    {
+        "color": "#2ca02c",
+        "from": "Takumi",
+        "title": "Takumi \u2192 Allen: 1 G",
+        "to": "Allen",
+        "value": 1
+    },
+    {
+        "color": "#2ca02c",
+        "from": "Takumi",
+        "title": "Takumi \u2192 Julian: 1 G",
+        "to": "Julian",
+        "value": 1
+    }
+])
+        };
+
+        const options = {
+            nodes: {
+                shape: 'dot',
+                font: { color: '#ffffff', size: 14, face: '-apple-system, BlinkMacSystemFont' },
+                color: { background: '#1e88e5', border: '#1565c0', highlight: { background: '#26a69a', border: '#00897b' } },
+                borderWidth: 2
+            },
+            edges: {
+                arrows: { to: { enabled: true, scaleFactor: 1.0 } },
+                color: { color: '#4a5160', highlight: '#26a69a', inherit: 'from' },
+                scaling: { min: 1, max: 8 },
+                smooth: { enabled: true, type: 'dynamic', roundness: 0.5 }
+            },
+            physics: {
+                solver: 'forceAtlas2Based',
+                forceAtlas2Based: {
+                    gravitationalConstant: -80,
+                    centralGravity: 0.01,
+                    springLength: 200,
+                    springConstant: 0.1,
+                    damping: 2,
+                    avoidOverlap: 1
+                },
+                stabilization: { enabled: true, iterations: 500 }
+            },
+            interaction: { hover: true, tooltipDelay: 100 }
+        };
+        new vis.Network(document.getElementById('network-container'), data, options);
+    </script>
+</body>
+</html>
